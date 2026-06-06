@@ -1,0 +1,121 @@
+{
+  "generated": "2026-06-06",
+  "total_plans": 655254,
+  "total_aircraft": 894472,
+  "total_records": 2971260,
+  "months_covered": [
+    "2024-07",
+    "2024-08",
+    "2024-09",
+    "2024-10",
+    "2024-11",
+    "2024-12",
+    "2025-01",
+    "2025-02",
+    "2025-03",
+    "2025-04",
+    "2025-05",
+    "2025-06"
+  ],
+  "comprehensive_threshold": 6,
+  "files": [
+    {
+      "file": "01_1_hikoukeikaku_202407.geojson",
+      "month": "2024-07",
+      "records": 4367,
+      "plans": 96
+    },
+    {
+      "file": "01_2_hikoukeikaku_202408.geojson",
+      "month": "2024-08",
+      "records": 10800,
+      "plans": 107
+    },
+    {
+      "file": "01_3_hikoukeikaku_202409.geojson",
+      "month": "2024-09",
+      "records": 21795,
+      "plans": 2244
+    },
+    {
+      "file": "01_4_hikoukeikaku_202410.geojson",
+      "month": "2024-10",
+      "records": 41263,
+      "plans": 7343
+    },
+    {
+      "file": "01_5_hikoukeikaku_202411.geojson",
+      "month": "2024-11",
+      "records": 154342,
+      "plans": 29137
+    },
+    {
+      "file": "01_6_hikoukeikaku_202412.geojson",
+      "month": "2024-12",
+      "records": 250295,
+      "plans": 57840
+    },
+    {
+      "file": "01_7_hikoukeikaku_202501.geojson",
+      "month": "2025-01",
+      "records": 233930,
+      "plans": 53996
+    },
+    {
+      "file": "01_8_hikoukeikaku_202502.geojson",
+      "month": "2025-02",
+      "records": 212163,
+      "plans": 58616
+    },
+    {
+      "file": "01_9_hikoukeikaku_202503_1.geojson",
+      "month": "2025-03",
+      "records": 216004,
+      "plans": 33346
+    },
+    {
+      "file": "01_9_hikoukeikaku_202503_2.geojson",
+      "month": "2025-03",
+      "records": 216005,
+      "plans": 40319
+    },
+    {
+      "file": "01_10_hikoukeikaku_202504_1.geojson",
+      "month": "2025-04",
+      "records": 296880,
+      "plans": 68491
+    },
+    {
+      "file": "01_10_hikoukeikaku_202504_2.geojson",
+      "month": "2025-04",
+      "records": 296881,
+      "plans": 56460
+    },
+    {
+      "file": "01_11_hikoukeikaku_202505_1.geojson",
+      "month": "2025-05",
+      "records": 320517,
+      "plans": 73729
+    },
+    {
+      "file": "01_11_hikoukeikaku_202505_2.geojson",
+      "month": "2025-05",
+      "records": 320518,
+      "plans": 67638
+    },
+    {
+      "file": "01_12_hikoukeikaku_202506_1.geojson",
+      "month": "2025-06",
+      "records": 187750,
+      "plans": 50731
+    },
+    {
+      "file": "01_12_hikoukeikaku_202506_2.geojson",
+      "month": "2025-06",
+      "records": 187750,
+      "plans": 55161
+    }
+  ],
+  "source": "国土交通省 Project LINKS『無人航空機飛行計画データ（2025年度）』",
+  "attribution": "出典：国土交通省 Project LINKS『無人航空機飛行計画データ（2025年度）』を加工して作成"
+}

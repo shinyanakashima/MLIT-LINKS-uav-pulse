@@ -1,0 +1,11 @@
+# Raw source GeoJSON (multi-GB, fetched via etl/download.py)
+data/raw/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
