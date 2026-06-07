@@ -42,11 +42,11 @@ python3 etl/aggregate.py
 
 ## デプロイ（GitHub Pages）
 
-1. リポジトリ Settings → Pages → Source を `Deploy from a branch` に設定
-2. Branch を対象ブランチ、フォルダを `/docs` に設定
-3. 公開された URL でダッシュボードが表示されます
+公開URL: **https://shinyanakashima.github.io/MLIT-LINKS-uav-pulse/**
 
-集計済み JSON とチャートのみの完全な静的配信のため、サーバーサイド処理や API キーは不要です。
+`main` への push をトリガーに `.github/workflows/pages.yml` が `docs/` を GitHub Pages へ自動デプロイします（`actions/configure-pages` が Pages を自動有効化）。集計済み JSON とチャートのみの完全な静的配信のため、サーバーサイド処理や API キーは不要です。
+
+private リポジトリで GitHub Pages が使えない場合は、`docs/` 配下一式をそのまま ConoHa WING 等へ配置すれば動作します。
 
 ## 集計の前処理方針
 
