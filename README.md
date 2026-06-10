@@ -9,6 +9,8 @@
 > ⚠️ **データの性質（必読）**
 > 本データは飛行**計画（申請）**であって、実際の飛行や運航実態ではありません。元データは紙資料のスキャンから機械抽出されたもので、**完全性・正確性は公式に保証されていません**。あくまで傾向把握の参考としてご利用ください。
 
+![ダッシュボードのスクリーンショット](screenshot.png)
+
 ---
 
 ## 主な集計結果（2024年7月〜2025年6月）
@@ -44,24 +46,44 @@
 - **飛行計画単位**（重複排除）… 飛行目的・操縦資格／機体認証・飛行空域・飛行方法・出発地
 - **機体単位**（重複排除）… 機体の種類・製造区分・改造の有無
 
+## 技術スタック
+
+- フロントエンド: **React + TypeScript + Vite**、**Tailwind CSS v4**（OKLCH テーマ）、shadcn 系のコピー&オウン UI コンポーネント
+- グラフ: **Recharts**（ビルド時にバンドル。実行時の外部 CDN・API キーは不要）
+- 集計 ETL: **Python**（`ijson` によるストリーム解析）
+- 配信: 完全な静的サイト。GitHub Actions でビルドし GitHub Pages へデプロイ
+
 ## リポジトリ構成
 
 ```
 etl/
   manifest.csv               対象16ファイル（リソースIDと対象月）
   download.py                CKAN 経由で GeoJSON を data/raw/ に取得
-  aggregate.py               ストリーム解析で集約 JSON を生成
-docs/                        GitHub Pages で配信する静的サイト（公開物）
-  index.html / style.css / app.js
-  vendor/chart.umd.min.js    Chart.js（同梱。実行時の外部CDN不要）
-  data/
-    summary.json             全体＋月次の集計値（サイトが読込む。約24KB）
+  aggregate.py               ストリーム解析で集約 JSON を web/public/data/ に生成
+web/                         フロントエンド（Vite + React + TS）
+  src/                       App・チャート・i18n（日英）・UI コンポーネント
+  public/data/
+    summary.json             全体＋月次の集計値（約24KB）
     meta.json                総件数・生成日・出典表記
-.github/workflows/pages.yml  main への push で docs/ を自動デプロイ
+  dist/                      ビルド成果物（.gitignore 済み。CIで生成・配信）
+.github/workflows/pages.yml  main への push で web/ をビルドし Pages へデプロイ
 data/raw/                    取得した生 GeoJSON（.gitignore 済み・合計約9GB）
+screenshot.png               README 用スクリーンショット
 ```
 
-リポジトリに含まれるのは集約済み JSON（数十KB）のみで、生データ（約9GB）は含みません。
+リポジトリに含まれるのは集約済み JSON（数十KB）のみで、生データ（約9GB）やビルド成果物は含みません。
+
+## ローカル開発
+
+**動作要件:** Node.js 20+、pnpm、（データ再生成時は）Python 3.9+。
+
+```bash
+cd web
+pnpm install
+pnpm dev      # 開発サーバ（http://localhost:5173/MLIT-LINKS-uav-pulse/）
+pnpm build    # 本番ビルド → web/dist/
+pnpm preview  # ビルド結果をローカル確認
+```
 
 ## データの再生成手順
 
@@ -76,13 +98,13 @@ pip install ijson
 python3 etl/aggregate.py
 ```
 
-`docs/data/summary.json` と `docs/data/meta.json` が更新されます（処理時間の目安は4〜5分）。新しい対象月が公開された場合は `etl/manifest.csv` に行を追加して再実行してください。
+`web/public/data/summary.json` と `meta.json` が更新されます（処理時間の目安は4〜5分）。新しい対象月が公開された場合は `etl/manifest.csv` に行を追加して再実行してください。
 
 ## デプロイ
 
-`main` ブランチへの push をトリガーに、GitHub Actions（`.github/workflows/pages.yml`）が `docs/` を GitHub Pages へ自動デプロイします（`actions/configure-pages` が Pages を自動有効化）。集計済み JSON と同梱 Chart.js のみで動く完全な静的配信のため、サーバーサイド処理や API キーは不要です。
+`main` ブランチへの push をトリガーに、GitHub Actions（`.github/workflows/pages.yml`）が `web/` をビルドし、成果物（`web/dist`）を GitHub Pages へ自動デプロイします（`actions/configure-pages` が Pages を自動有効化）。ビルド済みの静的アセットと集計済み JSON のみで動くため、サーバーサイド処理や API キーは不要です。
 
-GitHub Pages を使えない場合（private リポジトリ等）は、`docs/` 配下一式を任意の静的ホスティング（例: ConoHa WING）にそのまま配置すれば動作します。
+GitHub Pages を使えない場合（private リポジトリ等）は、`pnpm build` で生成した `web/dist/` 一式を任意の静的ホスティング（例: ConoHa WING）に配置すれば動作します。
 
 ## 集計の前処理方針
 

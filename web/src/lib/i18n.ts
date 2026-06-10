@@ -1,0 +1,147 @@
+export type Lang = "ja" | "en";
+
+/* Static UI strings. Plain-string keys; period/generated are formatter functions. */
+type StrDict = Record<string, string>;
+
+export const STR: Record<Lang, StrDict> = {
+  ja: {
+    "doc.title": "ドローン産業トレンド分析 ― 無人航空機飛行計画データ（2025年度）",
+    eyebrow: "Project LINKS データ活用 ／ 研究・業界レポート向け",
+    title: "ドローン産業トレンド分析",
+    lede: "無人航空機の飛行計画（申請）から、飛行目的・機体構成・資格保有の分布と月次推移を定量把握するダッシュボードです。",
+    "badge.applied": "申請ベース（実飛行・実態ではありません）",
+    "badge.quality": "データ品質は公式に非保証",
+    "notice.title": "このダッシュボードの読み方",
+    "notice.li1": "「飛行計画（申請）」の集計です。実際の飛行や運航実態を表すものではありません。",
+    "notice.li2": "元データは紙資料のスキャンから抽出されており、完全性・正確性は公式に保証されていません。傾向把握の参考としてご利用ください。",
+    "notice.li3": "日時データに品質上の問題があるため、月次の集計単位は「ファイル＝対象月」を信頼単位としています。",
+    "notice.li4": "飛行目的を多数同時に申請した計画（包括申請）は、目的別構成の分布から除外し、別途その件数・割合を示しています。",
+    "notice.li5": "1つの飛行計画が複数の機体・飛行エリアにわたって複数行に展開されるため、飛行目的・資格・空域・方法は飛行計画単位、機体構成は機体（airframe）単位で重複排除して集計しています。",
+    "notice.li6": "出発地は市区町村重心レベルに秘匿化済みです。本サイトでは粒度を上げる二次加工を行っていません。",
+    "kpi.total": "飛行計画 総件数（重複排除）",
+    "kpi.aircraft": "登録機体数（累計）",
+    "kpi.qual": "資格保有あり（認証/技能証明）",
+    "kpi.comp": "包括申請の割合",
+    "volume.title": "月次の飛行計画件数推移",
+    "volume.hint": "各月の飛行計画数（重複排除後）。年度をまたぐ12ヶ月の申請ボリュームの推移を示します。",
+    "volume.series": "飛行計画 件数",
+    "purpose.title": "飛行目的の構成（業務）",
+    "purpose.hint": "包括申請を除く。1件で複数目的を持つため合計は件数と一致しません。",
+    "aircraft.title": "機体の種類",
+    "aircraft.hint": "申請に用いられた機体種別の構成（機体単位・重複排除後）。",
+    "qual.title": "資格・認証の保有率",
+    "qual.hint": "各資格を保有する飛行計画の割合（全件に対する比率）。",
+    "mm.title": "製造区分・改造の有無",
+    "mm.hint": "機体の製造区分（左）と改造の有無（右）。",
+    "purposeTrend.title": "主要な飛行目的の月次推移",
+    "purposeTrend.hint": "上位の飛行目的について、各月の構成比（包括申請を除く目的フラグ合計に対する割合）の推移を示します。",
+    "qualTrend.title": "資格保有率の月次推移",
+    "qualTrend.hint": "各月の全件に対する資格保有割合の推移。資格制度の浸透傾向の把握に。",
+    "airspace.title": "飛行空域の構成",
+    "airspace.hint": "DID・150m以上・空港周辺など該当空域（複数該当あり）。",
+    "method.title": "飛行方法の構成",
+    "method.hint": "夜間・目視外・催し物上空など飛行方法（複数該当あり）。",
+    "pref.title": "出発地（都道府県）上位",
+    "pref.hint": "出発地テキストから抽出した都道府県別の件数上位15。市区町村重心レベルに秘匿化済みのデータに基づきます。",
+    "footer.license.pre": "ライセンス: 公共データ利用規約（第1.0版, CC BY 4.0 互換）。商用利用可・出典表記必須。データセット: ",
+    "footer.license.mid": " ／ プロジェクト: ",
+    "footer.error": "データの読み込みに失敗しました。集計ファイル（web/public/data/）が生成されているか確認してください。",
+    "unit.plans": "件",
+  },
+  en: {
+    "doc.title": "Drone Industry Trends — UAV Flight Plan Data (FY2025)",
+    eyebrow: "Project LINKS data / for research & industry reports",
+    title: "Drone Industry Trend Analysis",
+    lede: "A dashboard quantifying the distribution and monthly trends of flight purposes, aircraft mix and pilot/airworthiness credentials from UAV flight plans (applications).",
+    "badge.applied": "Application-based (not actual flights)",
+    "badge.quality": "Data quality not officially guaranteed",
+    "notice.title": "How to read this dashboard",
+    "notice.li1": "These are aggregates of flight plans (applications). They do not represent actual flights or operations.",
+    "notice.li2": "The source data is extracted from scanned paper documents; completeness and accuracy are not officially guaranteed. Use it as a reference for trends.",
+    "notice.li3": "Because the date/time fields have quality issues, the monthly unit of aggregation trusts “file = target month.”",
+    "notice.li4": "Plans that declare many purposes at once (blanket applications) are excluded from the purpose composition and reported separately as a count and share.",
+    "notice.li5": "Since one flight plan expands into many rows (per airframe × flight area), purpose, credentials, airspace and method are counted per flight plan and aircraft composition per airframe, de-duplicated.",
+    "notice.li6": "Departure points are anonymized to municipality-centroid level; this site does not perform secondary processing that increases granularity.",
+    "kpi.total": "Total flight plans (de-duplicated)",
+    "kpi.aircraft": "Registered airframes (cumulative)",
+    "kpi.qual": "With credentials (cert. / pilot license)",
+    "kpi.comp": "Share of blanket applications",
+    "volume.title": "Monthly flight-plan volume",
+    "volume.hint": "Flight plans per month (de-duplicated). Shows application volume across 12 months spanning the fiscal year.",
+    "volume.series": "Flight plans",
+    "purpose.title": "Flight purpose composition (business)",
+    "purpose.hint": "Blanket applications excluded. A plan can hold multiple purposes, so totals exceed the plan count.",
+    "aircraft.title": "Aircraft type",
+    "aircraft.hint": "Composition of aircraft types used in applications (per airframe, de-duplicated).",
+    "qual.title": "Credential holding rate",
+    "qual.hint": "Share of flight plans holding each credential (ratio of all plans).",
+    "mm.title": "Manufacture category & modification",
+    "mm.hint": "Manufacture category (left) and whether modified (right).",
+    "purposeTrend.title": "Monthly trend of major flight purposes",
+    "purposeTrend.hint": "For the top purposes, the monthly share (of total purpose flags, excluding blanket applications).",
+    "qualTrend.title": "Monthly trend of credential holding rate",
+    "qualTrend.hint": "Monthly share of plans holding each credential — useful for tracking adoption of the credential system.",
+    "airspace.title": "Airspace composition",
+    "airspace.hint": "Applicable airspace such as DID, ≥150m, near airports (multiple may apply).",
+    "method.title": "Flight method composition",
+    "method.hint": "Flight methods such as night, BVLOS, over events (multiple may apply).",
+    "pref.title": "Top departure prefectures",
+    "pref.hint": "Top 15 prefectures by count, extracted from the departure-point text. Based on data anonymized to municipality-centroid level.",
+    "footer.license.pre": "License: Public Data License (v1.0, CC BY 4.0 compatible). Commercial use allowed; attribution required. Dataset: ",
+    "footer.license.mid": " / Project: ",
+    "footer.error": "Failed to load data. Check that the aggregate files (web/public/data/) have been generated.",
+    "unit.plans": "plans",
+  },
+};
+
+export const periodStr = (lang: Lang, a: string, b: string) =>
+  lang === "en" ? `Period: ${a} – ${b} (monthly)` : `対象期間: ${a} 〜 ${b}（月次）`;
+
+export const generatedStr = (lang: Lang, d: string) =>
+  lang === "en" ? `Generated: ${d}` : `集計生成日: ${d}`;
+
+export const attributionStr = (lang: Lang, jaFallback: string) =>
+  lang === "en"
+    ? "Source: Created based on MLIT Project LINKS “UAV Flight Plan Data (FY2025)”."
+    : jaFallback;
+
+/* Data category labels (Japanese key -> English). Unmapped values fall back to JA. */
+export const LABELS_EN: Record<string, string> = {
+  空撮: "Aerial photography", 報道取材: "News coverage", 警備: "Security",
+  農林水産業: "Agriculture/forestry/fishery", 測量: "Surveying",
+  環境調査: "Environmental survey", 設備メンテナンス: "Equipment maintenance",
+  "インフラ点検・保守": "Infrastructure inspection", 資材管理: "Material handling",
+  "輸送・宅配": "Transport/delivery", 自然観測: "Nature observation",
+  "事故・災害対応等": "Accident/disaster response", 業務その他: "Business: other",
+  "回転翼航空機(マルチローター)": "Rotorcraft (multirotor)",
+  "回転翼航空機(ヘリコプター)": "Rotorcraft (helicopter)",
+  "回転翼航空機(その他)": "Rotorcraft (other)",
+  飛行機: "Airplane", 滑空機: "Glider",
+  "メーカーの機体・改造した機体": "Manufacturer-built / modified",
+  自作した機体: "Self-built",
+  改造なし: "No modification", 改造あり: "Modified",
+  "機体認証（一種）": "Type 1 airworthiness cert.",
+  "機体認証（二種）": "Type 2 airworthiness cert.",
+  "技能証明（一等）": "Class 1 pilot license",
+  "技能証明（二等）": "Class 2 pilot license",
+  "DID（人口集中地区）": "DID (densely inhabited)", "150m以上": "Above 150m",
+  空港周辺: "Near airport", 対象無し: "None",
+  "30m未満": "Within 30m", 催し物上空: "Over events", 夜間: "Night",
+  目視外: "BVLOS", 危険物輸送: "Dangerous goods", 物件投下: "Object dropping",
+  北海道: "Hokkaido", 青森県: "Aomori", 岩手県: "Iwate", 宮城県: "Miyagi",
+  秋田県: "Akita", 山形県: "Yamagata", 福島県: "Fukushima", 茨城県: "Ibaraki",
+  栃木県: "Tochigi", 群馬県: "Gunma", 埼玉県: "Saitama", 千葉県: "Chiba",
+  東京都: "Tokyo", 神奈川県: "Kanagawa", 新潟県: "Niigata", 富山県: "Toyama",
+  石川県: "Ishikawa", 福井県: "Fukui", 山梨県: "Yamanashi", 長野県: "Nagano",
+  岐阜県: "Gifu", 静岡県: "Shizuoka", 愛知県: "Aichi", 三重県: "Mie",
+  滋賀県: "Shiga", 京都府: "Kyoto", 大阪府: "Osaka", 兵庫県: "Hyogo",
+  奈良県: "Nara", 和歌山県: "Wakayama", 鳥取県: "Tottori", 島根県: "Shimane",
+  岡山県: "Okayama", 広島県: "Hiroshima", 山口県: "Yamaguchi", 徳島県: "Tokushima",
+  香川県: "Kagawa", 愛媛県: "Ehime", 高知県: "Kochi", 福岡県: "Fukuoka",
+  佐賀県: "Saga", 長崎県: "Nagasaki", 熊本県: "Kumamoto", 大分県: "Oita",
+  宮崎県: "Miyazaki", 鹿児島県: "Kagoshima", 沖縄県: "Okinawa",
+};
+
+export function makeTr(lang: Lang) {
+  return (label: string) => (lang === "en" ? LABELS_EN[label] ?? label : label);
+}

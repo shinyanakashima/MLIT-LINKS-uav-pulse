@@ -27,7 +27,7 @@ import ijson
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 RAW = os.path.join(ROOT, "data", "raw")
-OUT = os.path.join(ROOT, "docs", "data")
+OUT = os.path.join(ROOT, "web", "public", "data")
 
 # A plan flagging this many or more distinct business purposes is treated as a
 # blanket / comprehensive application rather than a single-purpose flight.
